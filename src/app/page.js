@@ -10,6 +10,8 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CustomEase from "gsap/CustomEase";
+import GalleryCanvas from "@/components/Gallery/GalleryCanvas";
+import VignetteOverlay from "@/components/Overlay/VignetteOverlay";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase);
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
@@ -164,7 +166,9 @@ export default function Home() {
       )}
 
       <section className="hero">
-        <DynamicBackground logoPath="/images/logos/logo_light.png" />
+        {/* <DynamicBackground logoPath="/images/logos/logo_light.png" /> */}
+        <VignetteOverlay />
+        <GalleryCanvas />
 
         <div className="hero-content">
           <div className="hero-header">

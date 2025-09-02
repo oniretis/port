@@ -4,6 +4,25 @@
   height: 100svh;
   color: var(--foreground);
   overflow: hidden;
+  cursor: grabbing;
+}
+
+
+
+.vignette-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 10%,
+    rgba(0, 0, 0, 0.1) 70%,
+    rgba(0, 0, 0, 0.75) 90%,
+    rgba(0, 0, 0, 1) 100%
+  );
 }
 
 .hero-header {
