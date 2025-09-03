@@ -290,6 +290,8 @@ export default function GalleryCanvas() {
         uTextureCount: { value: projects.length },
         uImageAtlas: { value: imageAtlas },
         uTextAtlas: { value: textAtlas },
+
+        uBackgroundBlur: { value: 0.0035 },
       };
 
       const geometry = new THREE.PlaneGeometry(2, 2);
