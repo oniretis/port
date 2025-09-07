@@ -20,6 +20,7 @@ export const fragmentShader = `
   uniform sampler2D uImageAtlas;
   uniform sampler2D uTextAtlas;
   uniform float uBackgroundBlur; // NEW
+  uniform vec4 uOverlayColor; // NEW
   varying vec2 vUv;
 
   // Simple 9-tap box blur around a base UV
@@ -167,5 +168,7 @@ export const fragmentShader = `
     float fade = 1.0 - smoothstep(1.2, 1.8, radius);
 
     gl_FragColor = vec4(color * fade, 1.0);
+
+    gl_FragColor.rgb = mix(gl_FragColor.rgb, uOverlayColor.rgb, uOverlayColor.a);
   }
 `;

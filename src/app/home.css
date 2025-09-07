@@ -3,7 +3,10 @@
   width: 100vw;
   height: 100svh;
   color: var(--foreground);
-  overflow: hidden;
+  overflow: hidden;  
+}
+
+body.dragging {
   cursor: grabbing;
 }
 
@@ -31,6 +34,7 @@
   width: 100%;
   padding: 1.5rem;
   display: flex;
+  z-index: 999;
 }
 
 .hero-header-col-lg {
@@ -48,6 +52,7 @@
   padding: 1.5rem;
   display: flex;
   align-items: flex-end;
+  z-index: 999;
 }
 
 .hero-footer-col-lg {

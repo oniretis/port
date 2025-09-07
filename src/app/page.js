@@ -176,8 +176,8 @@ export default function Home() {
             <div className="hero-header-col-sm">
               <Copy animateOnScroll={false} delay={showPreloader ? 6.2 : 0.9}>
                 <h3>
-                  Systems thinking and creative execution brought into web
-                  development for consistent outcomes.
+                  Building secure, scalable, and user-centric web apps
+                  worldwide.
                 </h3>
               </Copy>
             </div>
