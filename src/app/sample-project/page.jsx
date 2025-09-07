@@ -8,11 +8,29 @@ import BtnLink from "@/components/BtnLink/BtnLink";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { portfolio } from "../work/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const page = () => {
   const sampleProjectRef = useRef(null);
+  const searchParams = useSearchParams();
+
+  const name = searchParams.get("name");
+  const bgColor = searchParams.get("bgColor") || "var(--background)";
+
+  // find current project in portfolio
+  const currentProject = portfolio
+    .flatMap((year) => year.projects)
+    .find((p) => p.name === name);
+
+  const nextProject = currentProject
+    ? portfolio
+        .flatMap((year) => year.projects)
+        .find((p) => p.name === currentProject.nextProject)
+    : null;
 
   useGSAP(
     () => {
@@ -95,15 +113,19 @@ const page = () => {
   );
 
   return (
-    <div className="sample-project" ref={sampleProjectRef}>
+    <div
+      className="sample-project"
+      ref={sampleProjectRef}
+      style={{ backgroundColor: bgColor }}
+    >
       <section className="sp-hero">
         <Copy delay={0.85}>
-          <h1>Timefold 22</h1>
+          <h1>{name}</h1>
         </Copy>
       </section>
 
       <section className="sp-banner-img">
-        <img src="/images/work/work_006.jpeg" alt="" />
+        <img src={currentProject?.img || "/images/work/work_006.jpeg"} alt="" />
       </section>
 
       <section className="sp-copy">
@@ -111,22 +133,24 @@ const page = () => {
           <div className="sp-col sp-col-lg">
             <div className="sp-tags">
               <Copy>
-                <p className="sm caps mono">Creative Direction</p>
-                <p className="sm caps mono">Motion Design</p>
-                <p className="sm caps mono">Visual Identity</p>
+                <p className="sm caps mono">
+                  {currentProject?.tags || "Creative Direction"}
+                </p>
               </Copy>
             </div>
           </div>
           <div className="sp-col sp-col-sm">
             <div className="sp-year">
               <Copy delay={0.15}>
-                <p className="sm caps mono">2025</p>
+                <p className="sm caps mono">{currentProject?.year || "2025"}</p>
               </Copy>
             </div>
 
             <div className="client">
               <Copy delay={0.3}>
-                <p className="sm caps mono">Self-Initiated</p>
+                <p className="sm caps mono">
+                  {currentProject?.client || "Self-Initiated"}
+                </p>
               </Copy>
             </div>
           </div>
@@ -136,34 +160,22 @@ const page = () => {
           <div className="sp-col-lg">
             <div className="sp-copy-title">
               <Copy>
-                <h3>Exploring Motion Through Structured Design</h3>
+                <h3>{currentProject?.title || "Exploring Motion"}</h3>
               </Copy>
             </div>
           </div>
           <div className="sp-col-sm">
             <div className="sp-copy-description">
               <Copy>
-                <p>
-                  Timefold 22 is an exploration of motion through layered
-                  temporal loops. Built with a modular design system, the
-                  visuals pulse and stretch to reflect the elasticity of time in
-                  digital environments. The concept embraces minimal forms with
-                  high contrast dynamics to suggest an ongoing shift — folding
-                  the present into an abstract continuum.
-                </p>
-                <br />
-                <p>
-                  Designed as a speculative identity for a non-linear brand
-                  system, this piece operates both as a visual experiment and a
-                  creative prompt. Every frame is composed to highlight rhythm,
-                  silence, and distortion — aimed at evoking a subtle tension
-                  between chaos and control.
-                </p>
+                <p>{currentProject?.description || "Sample description..."}</p>
               </Copy>
 
               <div className="sp-link">
                 <div className="sp-link-wrapper">
-                  <BtnLink route="/" label="Live Demo" />
+                  <BtnLink
+                    route={currentProject?.link || "/"}
+                    label="Live Demo"
+                  />
                 </div>
               </div>
             </div>
@@ -177,48 +189,17 @@ const page = () => {
           <h1>/100</h1>
         </div>
         <div className="sp-images-container">
-          <div className="sp-img">
-            <img src="/images/work/work_001.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_021.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_003.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_009.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_015.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_023.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_024.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_001.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_021.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_003.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_009.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_015.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_023.jpeg" alt="" />
-          </div>
-          <div className="sp-img">
-            <img src="/images/work/work_024.jpeg" alt="" />
-          </div>
+          {(
+            currentProject?.images || [
+              "/images/work/work_001.jpeg",
+              "/images/work/work_021.jpeg",
+              "/images/work/work_003.jpeg",
+            ]
+          ).map((img, idx) => (
+            <div className="sp-img" key={idx}>
+              <img src={img} alt="" />
+            </div>
+          ))}
         </div>
       </section>
 
@@ -229,7 +210,17 @@ const page = () => {
           </Copy>
           <div className="sp-next-project-names">
             <Copy>
-              <h1>Hidden Signal</h1>
+              {nextProject ? (
+                <Link
+                  href={`/sample-project?name=${encodeURIComponent(
+                    nextProject.name
+                  )}&bgColor=${encodeURIComponent(nextProject.bgColor)}`}
+                >
+                  <h1 style={{ cursor: "pointer" }}>{nextProject.name}</h1>
+                </Link>
+              ) : (
+                <h1>{currentProject?.nextProject || "Hidden Signal"}</h1>
+              )}
             </Copy>
           </div>
         </div>

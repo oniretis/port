@@ -55,10 +55,15 @@ const page = () => {
     );
   }
 
-  const navigateToProject = () => {
-    router.push("/sample-project", {
-      onTransitionReady: slideInOut,
-    });
+  const navigateToProject = (project) => {
+    router.push(
+      `/sample-project?bgColor=${encodeURIComponent(
+        project.bgColor
+      )}&name=${encodeURIComponent(project.name)}`,
+      {
+        onTransitionReady: slideInOut,
+      }
+    );
   };
 
   useGSAP(
@@ -231,7 +236,7 @@ const page = () => {
                   <div
                     key={projectIndex}
                     className="work-project"
-                    onClick={navigateToProject}
+                    onClick={() => navigateToProject(project)}
                     style={{ cursor: "pointer" }}
                   >
                     <div className="work-project-img">

@@ -14,6 +14,7 @@ const Menu = ({ onMenuStateChange }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [currentPath, setCurrentPath] = useState("/");
   const [currentTime, setCurrentTime] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
   const router = useTransitionRouter();
 
   const menuRef = useRef(null);
@@ -46,7 +47,16 @@ const Menu = ({ onMenuStateChange }) => {
         })
         .replace(/:/g, ":")
         .toUpperCase();
+
+      const dateString = now.toLocaleDateString("en-US", {
+        weekday: "long", // full day name
+        year: "numeric",
+        month: "long", // full month name
+        day: "numeric",
+      });
+
       setCurrentTime(timeString);
+      setCurrentDate(dateString);
     };
 
     updateTime();
@@ -335,7 +345,9 @@ const Menu = ({ onMenuStateChange }) => {
           <div className="nav-items">
             <div className="nav-menu-time">
               <div className="revealer">
-                <p className="sm caps mono">{currentTime}</p>
+                <p className="sm caps mono">
+                  {currentDate} {currentTime}
+                </p>
               </div>
             </div>
 

@@ -9,7 +9,7 @@ import { projects } from "@/data/projects";
 
 const config = {
   cellSize: 0.75,
-  zoomLevel: 1.25,
+  zoomLevel: 2.0,
   lerpFactor: 0.075,
   borderColor: "rgba(255, 255, 255, 0.15)",
   backgroundColor: "rgba(0, 0, 0, 1)",
@@ -41,8 +41,8 @@ export default function GalleryCanvas() {
     offset: { x: 0, y: 0 },
     targetOffset: { x: 0, y: 0 },
     mousePosition: { x: -1, y: -1 },
-    zoomLevel: 1.0,
-    targetZoom: 1.0,
+    zoomLevel: 1.5,
+    targetZoom: 1.5,
     textTextures: [],
   });
 
@@ -162,6 +162,10 @@ export default function GalleryCanvas() {
     s.previousMouse.x = x;
     s.previousMouse.y = y;
     setTimeout(() => s.isDragging && (s.targetZoom = config.zoomLevel), 150);
+
+    // hide "drag me" text when dragging starts
+    const dragText = document.getElementById("drag-text");
+    if (dragText) dragText.style.opacity = "0";
   }
 
   function handleMove(currentX, currentY) {
@@ -174,7 +178,7 @@ export default function GalleryCanvas() {
 
     if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
       s.isClick = false;
-      if (s.targetZoom === 1.0) s.targetZoom = config.zoomLevel;
+      if (s.targetZoom === 1.5) s.targetZoom = config.zoomLevel;
     }
 
     s.targetOffset.x -= deltaX * 0.003;
@@ -187,7 +191,11 @@ export default function GalleryCanvas() {
     const s = stateRef.current;
     s.isDragging = false;
     document.body.classList.remove("dragging");
-    s.targetZoom = 1.0;
+    s.targetZoom = 1.5;
+
+    // show "drag me" text again
+    const dragText = document.getElementById("drag-text");
+    if (dragText) dragText.style.opacity = "1";
 
     if (s.isClick && Date.now() - s.clickStartTime < 200) {
       const endX = event.clientX || event.changedTouches?.[0]?.clientX;
@@ -212,9 +220,9 @@ export default function GalleryCanvas() {
         const actualIndex =
           texIndex < 0 ? projects.length + texIndex : texIndex;
 
-        if (projects[actualIndex]?.href) {
-          window.location.href = projects[actualIndex].href;
-        }
+        // if (projects[actualIndex]?.href) {
+        //   window.location.href = projects[actualIndex].href;
+        // }
       }
     }
   }
@@ -292,6 +300,7 @@ export default function GalleryCanvas() {
         uTextAtlas: { value: textAtlas },
 
         uBackgroundBlur: { value: 0.0035 },
+        uOverlayColor: { value: new THREE.Vector4(0.0, 0.0, 0.0, 0.35) },
       };
 
       const geometry = new THREE.PlaneGeometry(2, 2);
@@ -366,6 +375,16 @@ export default function GalleryCanvas() {
       animate();
     })();
 
+    // cursor-follow "drag me" text
+    const dragText = document.getElementById("drag-text");
+    function moveText(e) {
+      if (dragText) {
+        dragText.style.left = `${e.clientX}px`;
+        dragText.style.top = `${e.clientY - 20}px`;
+      }
+    }
+    document.addEventListener("mousemove", moveText);
+
     // cleanup
     return () => {
       mounted = false;
@@ -375,13 +394,7 @@ export default function GalleryCanvas() {
         renderer.domElement.remove();
         renderer.dispose();
       }
-      // Remove listeners
-      document.removeEventListener("mousedown", startDrag);
-      document.removeEventListener("mousemove", handleMove);
-      document.removeEventListener("mouseup", onPointerUp);
-      document.removeEventListener("mouseleave", onPointerUp);
-      window.removeEventListener("resize", resizeRendererToDisplaySize);
-      document.removeEventListener("contextmenu", (e) => e.preventDefault());
+      document.removeEventListener("mousemove", moveText);
     };
   }, []); // run once
 
@@ -389,7 +402,31 @@ export default function GalleryCanvas() {
     <div
       id="gallery"
       ref={containerRef}
-      style={{ width: "100%", height: "100%" }}
-    />
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      {/* floating "drag me" text */}
+      <div
+        id="drag-text"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          pointerEvents: "none",
+          transform: "translate(-50%, -50%)",
+          fontFamily: "IBM Plex Mono, monospace",
+          fontSize: "14px",
+          color: "rgba(200, 200, 200, 0.8)",
+          zIndex: 9999,
+          transition: "opacity 0.2s ease",
+        }}
+      >
+        drag me
+      </div>
+    </div>
   );
 }
