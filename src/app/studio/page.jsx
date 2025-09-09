@@ -95,7 +95,7 @@ const page = () => {
 
         <section className="studio-hero-img">
           <div className="studio-hero-img-wrapper">
-            <img src="/images/studio/hero.jpeg" alt="" />
+            <img src="/images/studio/hero.png" alt="" />
           </div>
         </section>
 

@@ -16,6 +16,16 @@
 .sp-banner-img {
   width: 100vw;
   height: 90svh;
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-banner-img img,
+.sp-banner-img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .sp-copy {
@@ -134,5 +144,15 @@
 
   .sp-images-container {
     width: 85%;
+  }
+
+  .sp-banner-img {
+    height: 70svh; /* tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .sp-banner-img {
+    height: 60svh; /* small mobile */
   }
 }
