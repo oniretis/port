@@ -105,7 +105,7 @@ const page = () => {
       <div className="contact-copy">
         <div className="contact-copy-bio">
           <Copy delay={1}>
-            <p className="caps sm">Wu Wei Studios</p>
+            <p className="caps sm">Sams Studios</p>
             <p className="caps sm">Toronto / Copenhagen</p>
           </Copy>
         </div>
