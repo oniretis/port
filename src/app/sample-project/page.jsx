@@ -1,6 +1,6 @@
 "use client";
 import "./sample-project.css";
-import { useRef } from "react";
+import { useRef, Suspense } from "react";
 
 import Copy from "@/components/Copy/Copy";
 import BtnLink from "@/components/BtnLink/BtnLink";
@@ -14,7 +14,7 @@ import { portfolio } from "../work/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const page = () => {
+const SampleProjectContent = () => {
   const sampleProjectRef = useRef(null);
   const searchParams = useSearchParams();
 
@@ -253,4 +253,12 @@ const page = () => {
   );
 };
 
-export default page;
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SampleProjectContent />
+    </Suspense>
+  );
+};
+
+export default Page;
