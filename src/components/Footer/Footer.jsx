@@ -54,7 +54,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-social">
-            <a href="mailto:contact@codegrid.com">
+            <a href="mailto:korglyrics1@gmail.com">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>Email</h2>
@@ -63,7 +63,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="footer-social">
-            <a href="https://www.youtube.com/@codegrid">
+            <a href="#">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>LinkedIn</h2>
@@ -72,7 +72,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="footer-social">
-            <a href="https://www.youtube.com/@codegrid">
+            <a href="#">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>Behance</h2>
@@ -81,7 +81,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="footer-social">
-            <a href="https://www.youtube.com/@codegrid">
+            <a href="#">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>Instagram</h2>
@@ -90,7 +90,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="footer-social">
-            <a href="https://vimeo.com/codegrid">
+            <a href="#">
               <div className="footer-text">
                 <div className="footer-text-content">
                   <h2>Vimeo</h2>
@@ -105,7 +105,7 @@ const Footer = () => {
         <div className="fc-col-lg">
           <div className="footer-text">
             <div className="footer-text-content">
-              <p className="sm caps">Developed by Codegrid</p>
+              <p className="sm caps">Inspiration from phantom studios</p>
             </div>
           </div>
         </div>

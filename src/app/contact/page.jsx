@@ -99,7 +99,7 @@ const page = () => {
     <div className="contact" ref={contactRef}>
       <div className="contact-img-wrapper">
         <div className="contact-img">
-          <img src="/images/contact/contact.jpeg" alt="" />
+          <img src="/images/contact/contact.png" alt="" />
         </div>
       </div>
       <div className="contact-copy">
@@ -124,7 +124,7 @@ const page = () => {
             <Copy delay={1.3}>
               <p className="caps sm">Toronto</p>
               <p className="caps sm">Studio 302, Richmond St W</p>
-              <p className="caps sm">M5V 3A8</p>
+              <p className="caps sm">M5V 2A8</p>
             </Copy>
           </div>
 
@@ -132,7 +132,7 @@ const page = () => {
             <Copy delay={1.45}>
               <p className="caps sm">Copenhagen</p>
               <p className="caps sm">Unit 02 Refshalevej 167A</p>
-              <p className="caps sm">1432 KØBENHAVN K</p>
+              <p className="caps sm">1902 KØBENHAVN K</p>
             </Copy>
           </div>
         </div>
@@ -156,7 +156,7 @@ const page = () => {
         <div className="fc-col-lg">
           <div className="footer-text">
             <div className="footer-text-content">
-              <p className="sm caps">Developed by Codegrid</p>
+              <p className="sm caps">Inspiration from phantom studios</p>
             </div>
           </div>
         </div>

@@ -438,23 +438,17 @@ const Menu = ({ onMenuStateChange }) => {
             <div className="menu-footer-col">
               <div className="socials">
                 <div className="revealer">
-                  <a
-                    className="sm caps mono"
-                    href="https://www.youtube.com/@codegrid"
-                  >
+                  <a className="sm caps mono" href="#">
                     YouTube
                   </a>
                 </div>
                 <div className="revealer">
-                  <a
-                    className="sm caps mono"
-                    href="https://www.instagram.com/codegridweb/"
-                  >
+                  <a className="sm caps mono" href="#">
                     Instagram
                   </a>
                 </div>
                 <div className="revealer">
-                  <a className="sm caps mono" href="https://x.com/codegridweb">
+                  <a className="sm caps mono" href="#">
                     X
                   </a>
                 </div>
