@@ -90,7 +90,7 @@ const page = () => {
     <>
       <div className="studio" ref={studioRef}>
         <section className="studio-hero">
-          <h1 className="caps">Wu</h1>
+          <h1 className="caps">Sams Studio</h1>
         </section>
 
         <section className="studio-hero-img">
@@ -103,7 +103,7 @@ const page = () => {
           <div className="studio-header-copy">
             <Copy>
               <h2>
-                At Wu Wei Studio, we approach every project with quiet focus.
+                At Sams Studio, we approach every project with quiet focus.
                 Through close collaboration and considered process, we build
                 digital work that reflects both the needs of our clients and the
                 values of our practice.
