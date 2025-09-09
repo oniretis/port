@@ -43,21 +43,28 @@ const page = () => {
       const counter = sampleProjectRef.current.querySelector(
         "#sp-images-scroll-counter"
       );
-      const bannerImg =
-        sampleProjectRef.current.querySelector(".sp-banner-img");
+
+      // 👇 this will grab either <img> or <video> inside the banner
+      const bannerMedia = sampleProjectRef.current.querySelector(
+        ".sp-banner-img img, .sp-banner-img video"
+      );
+
       const btnLinkWrapper =
         sampleProjectRef.current.querySelector(".sp-link-wrapper");
 
-      gsap.set(bannerImg, {
-        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-      });
+      // apply the same animation to whichever exists
+      if (bannerMedia) {
+        gsap.set(bannerMedia, {
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        });
 
-      gsap.to(bannerImg, {
-        clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-        duration: 1,
-        delay: 1,
-        ease: "power4.out",
-      });
+        gsap.to(bannerMedia, {
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+          duration: 1,
+          delay: 1,
+          ease: "power4.out",
+        });
+      }
 
       if (btnLinkWrapper) {
         gsap.set(btnLinkWrapper, { y: 30, opacity: 0 });
@@ -125,7 +132,21 @@ const page = () => {
       </section>
 
       <section className="sp-banner-img">
-        <img src={currentProject?.img || "/images/work/work_006.jpeg"} alt="" />
+        {currentProject?.bannerVideo ? (
+          <video
+            src={currentProject.bannerVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="sp-banner-video"
+          />
+        ) : (
+          <img
+            src={currentProject?.bannerImg || "/images/work/work_006.jpeg"}
+            alt=""
+          />
+        )}
       </section>
 
       <section className="sp-copy">
@@ -168,6 +189,9 @@ const page = () => {
             <div className="sp-copy-description">
               <Copy>
                 <p>{currentProject?.description || "Sample description..."}</p>
+              </Copy>
+              <Copy>
+                <p>{currentProject?.more || "Sample description..."}</p>
               </Copy>
 
               <div className="sp-link">
